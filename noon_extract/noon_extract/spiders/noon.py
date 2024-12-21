@@ -1,5 +1,7 @@
 import scrapy
 from datetime import datetime
+import re
+
 
 class NoonSpider(scrapy.Spider):
     name = "noon"
@@ -19,9 +21,9 @@ class NoonSpider(scrapy.Spider):
         
         for product in products:
             date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            sku = ""
+            sku = product.css("a::attr(href)").re_first(r"/([A-Z0-9]+)[/p]")
             product_name = product.css('[data-qa="product-name"]::attr(title)').get()
-            brand = ""
+            brand = "sc-f35b8612-21 ovuGP"
             rating = product.css("div[class*='dGLdNc']::text").get() or "NA"
             rating_count = product.css("span[class*='DkxLK']::text").get() or "NA"
             sponsored = "Y" if product.css("div[class*='gzboVs']::text").get() else "N"
@@ -37,7 +39,7 @@ class NoonSpider(scrapy.Spider):
             yield {
                 "Date & Time": date_time,
                 "SKU": sku,
-                "Name": "product_name",
+                "Name": product_name,
                 "Brand": brand,
                 "Average Rating": rating,
                 "Rating Count": rating_count,
