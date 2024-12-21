@@ -1,0 +1,19 @@
+Create a Virtual Environment:
+python -m venv myenv
+
+Activate the Virtual Environment: 
+windows - venv\Scripts\activate
+mac/linux - source venv/bin/activate
+
+Install Scrapy:
+pip install scrapy
+
+
+other
+scrapy version
+pip freeze > requirements.txt
+
+
+
+scrapy startproject noon_extract
+scrapy genspider noon yoga
